@@ -23,6 +23,29 @@ public class PlayerController : MonoBehaviour
         // Вращаем объект вокруг оси Y по горизонтальной оси мыши
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime * mouseHorizontal);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Проверяем, столкнулись ли мы с объектом с тегом "Ghost"
+        if (other.gameObject.CompareTag("Ghost"))
+        {
+            // Если да, уничтожаем этот объект
+            Destroy(other.gameObject);
+        }
+        // Проверяем, столкнулись ли мы с объектом с тегом "Finish"
+        else if (other.gameObject.CompareTag("Finish"))
+        {
+            // Если да, выводим в консоль сообщение "Game Over"
+            Debug.Log("Game Over");
+        }
+        // Проверяем, столкнулись ли мы с объектом с тегом "Win"
+        else if (other.gameObject.CompareTag("Win"))
+        {
+            // Если да, выводим в консоль сообщение "Win Game"
+            Debug.Log("Win Game");
+        }
+    }
+
 }
 
 public class PlayerController2 : MonoBehaviour
