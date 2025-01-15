@@ -5,6 +5,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] int speed = 20;
     [SerializeField] int rotationSpeed = 90;
 
+    public GameObject fireballPrefab; // Префаб файрбола
+    public Transform fireballSpawnPoint; // Точка спавна файрбола
+    private Vector3 offset = new Vector3(0,1,0);
+
     void Update()
     {
         // Получаем значения осей от клавиатуры
@@ -22,6 +26,14 @@ public class PlayerController : MonoBehaviour
 
         // Вращаем объект вокруг оси Y по горизонтальной оси мыши
         transform.Rotate(Vector3.up * rotationSpeed * Time.deltaTime * mouseHorizontal);
+
+
+        // Проверяем нажатие левой кнопки мыши
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Создаем файрбол
+            GameObject fireball = Instantiate(fireballPrefab, fireballSpawnPoint.position + offset, fireballSpawnPoint.rotation);            
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -45,6 +57,9 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Win Game");
         }
     }
+
+
+
 
 }
 
